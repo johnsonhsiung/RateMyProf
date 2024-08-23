@@ -1,0 +1,40 @@
+{
+  "reviews": [
+    {
+      "professor": "Dr. Emily Carter",
+      "subject": "Data Structures and Algorithms",
+      "stars": 5,
+      "review": "Dr. Carter is an amazing professor who explains concepts very clearly. The course was challenging, but she was always willing to help during office hours."
+    },
+    {
+      "professor": "Dr. Emily Carter",
+      "subject": "Operating Systems",
+      "stars": 4,
+      "review": "The course material was tough, but her lectures were very detailed and well-organized. Make sure to stay on top of the assignments."
+    },
+    {
+      "professor": "Dr. John Smith",
+      "subject": "Calculus I",
+      "stars": 4,
+      "review": "Dr. Smith is very knowledgeable and engaging. He makes difficult topics easier to grasp. Homework assignments can be lengthy though."
+    },
+    {
+      "professor": "Dr. John Smith",
+      "subject": "Linear Algebra",
+      "stars": 3,
+      "review": "The lectures were good, but the exams were very difficult. Dr. Smith provides plenty of practice problems, which helped a lot."
+    },
+    {
+      "professor": "Dr. Sarah Johnson",
+      "subject": "Classical Mechanics",
+      "stars": 5,
+      "review": "Dr. Johnson is very enthusiastic and explains the concepts clearly. Her passion for physics is contagious, and she encourages participation."
+    },
+    {
+      "professor": "Dr. Sarah Johnson",
+      "subject": "Electromagnetism",
+      "stars": 4,
+      "review": "Her lectures are well-structured, but the exams are tough. Make sure to review the materials and attend her review sessions."
+    }
+  ]
+}
