@@ -3,6 +3,8 @@ import RenderResult from "next/dist/server/render-result";
 import { useState } from "react";
 import { Box, TextField, Button, Stack } from "@mui/material";
 import ReactMarkdown from "react-markdown";
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import IconButton from '@mui/material/IconButton';
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -15,6 +17,11 @@ export default function Home() {
   const [message, setMessage] = useState("");
   // Use functional states when your current state depends on a previous state. Otherwise, because react may not render the component immediately, some updates might be lost. 
   const sendMessage = async () => {
+    if (!message) {
+      console.log('Message is empty, exiting function');
+      return; 
+    }
+    console.log(`sending ${message}`)
     setMessages((messages) => [
       ...messages,
       { role: "user", content: message },
@@ -123,10 +130,9 @@ export default function Home() {
             }}
             onKeyDown={handleKeyDown}
           ></TextField>
-          <Button varianat="contained" onClick={sendMessage}>
-            {" "}
-            send
-          </Button>
+         <IconButton color="primary" aria-label="send" onClick={sendMessage}>
+            <ArrowUpwardIcon/>
+          </IconButton>
         </Stack>
       </Stack>
     </Box>
