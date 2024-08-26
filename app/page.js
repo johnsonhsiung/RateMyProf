@@ -13,6 +13,7 @@ export default function Home() {
     },
   ]);
   const [message, setMessage] = useState("");
+  // Use functional states when your current state depends on a previous state. Otherwise, because react may not render the component immediately, some updates might be lost. 
   const sendMessage = async () => {
     setMessages((messages) => [
       ...messages,
@@ -20,7 +21,7 @@ export default function Home() {
       { role: "assistant", content: "" },
     ]);
     setMessage("");
-
+  
     const response = fetch("/api/chat", {
       method: "POST",
       headers: {
@@ -32,10 +33,14 @@ export default function Home() {
       const decoder = new TextDecoder();
 
       let result = "";
+      // reader.read() returns a promise that resolves as done (boolean for if stream is finished) and value (Uint8Array - current chunk of data)
+      // function processText is a named anonymous function that takes in an object. 
+      // we destructure the promise object from reader.read() into two variables done and value 
       return reader.read().then(function processText({ done, value }) {
         if (done) {
           return result;
         }
+        // value might be null or undefined due to issues in the stream or network, so need a fallback mechanism so the code doesn't break. 
         const text = decoder.decode(value || new Uint8Array(), {
           stream: true,
         });
@@ -49,10 +54,18 @@ export default function Home() {
             { ...lastMessage, content: lastMessage.content + text },
           ];
         });
+        // recursively call for the next chunk of data
         return reader.read().then(processText);
       });
     });
   };
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevents the default action (like a newline)
+      sendMessage();
+    }
+  };
+
   return (
     <Box
       width="100vw"
@@ -108,6 +121,7 @@ export default function Home() {
             onChange={(e) => {
               setMessage(e.target.value);
             }}
+            onKeyDown={handleKeyDown}
           ></TextField>
           <Button varianat="contained" onClick={sendMessage}>
             {" "}
