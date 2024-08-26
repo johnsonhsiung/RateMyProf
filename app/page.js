@@ -1,12 +1,18 @@
 "use client";
 import RenderResult from "next/dist/server/render-result";
-import { useState } from "react";
-import { Box, TextField, Button, Stack } from "@mui/material";
+import { useState, useRef, useEffect } from "react";
+import { Box, TextField, Button, Stack, Typography } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import IconButton from '@mui/material/IconButton';
+import Link from '@mui/material/Link';
+import Divider from '@mui/material/Divider';
+import {  } from '@mui/material';
+
+
 
 export default function Home() {
+
   const [messages, setMessages] = useState([
     {
       role: "assistant",
@@ -15,6 +21,17 @@ export default function Home() {
     },
   ]);
   const [message, setMessage] = useState("");
+
+  const stackRef = useRef(null);
+
+  useEffect(() => {
+    // Everytime messages is updatead, get the stack displaying messages and scroll to the bottom. 
+    const stackElement = stackRef.current;
+    if (stackElement) {
+      stackElement.scrollTop = stackElement.scrollHeight;
+    }
+  }, [messages]); 
+
   // Use functional states when your current state depends on a previous state. Otherwise, because react may not render the component immediately, some updates might be lost. 
   const sendMessage = async () => {
     if (!message) {
@@ -78,24 +95,71 @@ export default function Home() {
       width="100vw"
       height="100vh"
       display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
+      flexDirection="row"
+
     >
+      <Box
+        flex='1 1 25%'
+        bgcolor='black'
+        display="flex"
+        flexDirection="column"
+        alignContent='center'
+      >  
+      <Box>
+        <Typography variant='h3' color='white' align='center' margin={'24px'}>
+          RAG Professor Chatbot
+        </Typography>
+      </Box>
+      <Divider variant="middle"sx= {{bgcolor:'white'}}/>
+      <Box>
+        <Typography variant='h6' color='white' align='left' margin={'32px'}>
+          `Welcome to RAG Professor Chatbot. This chatbot uses OpenAI embeddings to search a Pinecone database filled with dummy professor data inserted with Python.
+          Some sample questions you can ask: <br /> <br />
+          Who teaches Linear Algebra? <br /> <br />
+          Who is Dr. Emily Carter? <br /> <br />
+          What classes are there for computer science? <br /> <br /> <br />
+        </Typography>
+
+
+      </Box>
+      <Divider variant="middle"sx= {{bgcolor:'white'}}/>
+      <Box height='300px'>
+        <Typography variant='h6' color='white' align='left' margin={'32px'}>
+          Check out the&nbsp;
+          <Link href='https://github.com/johnsonhsiung/RateMyProf' component='span'> 
+          source code
+          </Link>
+          &nbsp;for more details!
+        </Typography>
+        
+      </Box>
+
+        
+      </Box>
+    
       <Stack
         direction="column"
-        width="500px"
-        height="700px"
-        border="1px solid black"
+        flex= '1 1 75%'
         p={2}
         spacing={3}
+        sx ={{
+          marginLeft: '128px',
+          marginRight: '128px',
+        }}
       >
         <Stack
+          ref={stackRef}
           direction="column"
           spacing={2}
           flexGrow={1}
           overflow="auto"
           maxHeight="100%"
+          sx = {{
+            "&::-webkit-scrollbar": {
+            display: "none",
+            },
+          }}
+
         >
           {messages.map((message, index) => (
             <Box
@@ -108,11 +172,11 @@ export default function Home() {
               <Box
                 bgcolor={
                   message.role === "assistant"
-                    ? "primary.main"
-                    : "secondary.main"
+                    ? "white"
+                    : "#e0e0e0"
                 }
-                color="white"
-                borderRadius={16}
+                color="black"
+                borderRadius={8}
                 p={3}
               >
                 <ReactMarkdown>{message.content}</ReactMarkdown>
