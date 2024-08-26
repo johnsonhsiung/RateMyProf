@@ -106,7 +106,7 @@ export default function Home() {
         alignContent='center'
       >  
       <Box>
-        <Typography variant='h3' color='white' align='center' margin={'24px'}>
+        <Typography variant='h4' color='white' align='center' margin={'24px'} fontWeight='bold'>
           RAG Professor Chatbot
         </Typography>
       </Box>
