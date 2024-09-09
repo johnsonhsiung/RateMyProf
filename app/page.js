@@ -174,7 +174,9 @@ export default function Home() {
         sx={{
           background: "rgb(0,0,0)",
           background:
-            "linear-gradient(112deg, rgba(0,0,0,1) 5%, rgba(53,112,82,1) 52%, rgba(74,158,115,1) 84%)",
+            "linear-gradient(112deg, #2980b9 0%, #6dd5fa 50%, #ffffff 100%)",
+            
+
         }}
       >
         <Stack
